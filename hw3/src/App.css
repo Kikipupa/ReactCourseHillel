@@ -1,0 +1,12 @@
+.filter-sort {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.filter-sort button {
+  flex: 1;
+  margin: 0 5px;
+  padding: 10px;
+}

@@ -12,7 +12,7 @@ export const useTodos = () => {
   useEffect(() => {
     const fetchTodos = async () => {
       const todosData = await getTodos();
-      setTodos(todosData);
+      setTodos(todosData.slice(0, 10));
     };
     fetchTodos();
   }, []);
@@ -20,17 +20,22 @@ export const useTodos = () => {
   const createTodo = async (title) => {
     const newTodo = { title, completed: false };
     const savedTodo = await addTodo(newTodo);
-    setTodos([...todos, savedTodo]);
+    setTodos((prevTodos) => [
+      ...prevTodos,
+      { ...savedTodo, id: prevTodos.length + 1 },
+    ]);
   };
 
   const editTodo = async (id, updatedTodo) => {
     const savedTodo = await updateTodo(id, updatedTodo);
-    setTodos(todos.map((todo) => (todo.id === id ? savedTodo : todo)));
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) => (todo.id === id ? savedTodo : todo))
+    );
   };
 
   const removeTodo = async (id) => {
     await deleteTodo(id);
-    setTodos(todos.filter((todo) => todo.id !== id));
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
   };
 
   return { todos, createTodo, editTodo, removeTodo };

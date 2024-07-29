@@ -1,7 +1,28 @@
-import React from "react";
-import Button from "../Button/Button";
+import React, { useState } from "react";
 
 function MenuItem({ item }) {
+  const [quantity, setQuantity] = useState(0);
+  const [isInCart, setIsInCart] = useState(false);
+
+  const increaseQuantity = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const decreaseQuantity = () => {
+    if (quantity > 0) {
+      setQuantity(quantity - 1);
+    }
+  };
+
+  const resetQuantity = () => {
+    setQuantity(0);
+    setIsInCart(false);
+  };
+
+  const addToCart = () => {
+    setIsInCart(true);
+  };
+
   return (
     <li className="menu-item">
       <img src={item.imageUrl} alt={item.name} />
@@ -13,11 +34,19 @@ function MenuItem({ item }) {
         </div>
         {item.soldOut ? (
           <span>SOLD OUT</span>
+        ) : isInCart ? (
+          <div>
+            <button onClick={decreaseQuantity} disabled={quantity === 0}>
+              -
+            </button>
+            <span>{quantity}</span>
+            <button onClick={increaseQuantity}>+</button>
+            <button onClick={resetQuantity} disabled={quantity === 0}>
+              Delete
+            </button>
+          </div>
         ) : (
-          <Button
-            text="ADD TO CART"
-            handleButton={() => console.log("Added to cart")}
-          />
+          <button onClick={addToCart}>ADD TO CART</button>
         )}
       </div>
     </li>

@@ -34,7 +34,7 @@ const Cart = () => {
       {items.map((item) => (
         <div key={item.id}>
           <h2>{item.name}</h2>
-          <p>Price: ${item.price}</p>
+          <p>Price: ${item.unitPrice}</p>
           <p>Quantity: {item.quantity}</p>
           <button onClick={() => handleIncrement(item.id)}>+</button>
           <button onClick={() => handleDecrement(item.id)}>-</button>

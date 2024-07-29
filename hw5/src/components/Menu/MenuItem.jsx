@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../features/cart/cartSlice";
 
 function MenuItem({ item }) {
   const [quantity, setQuantity] = useState(0);
   const [isInCart, setIsInCart] = useState(false);
+  const dispatch = useDispatch();
 
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
@@ -19,7 +22,8 @@ function MenuItem({ item }) {
     setIsInCart(false);
   };
 
-  const addToCart = () => {
+  const handleAddToCart = () => {
+    dispatch(addToCart({ ...item, quantity: 1 })); // Додаємо один елемент у кошик
     setIsInCart(true);
   };
 
@@ -46,7 +50,7 @@ function MenuItem({ item }) {
             </button>
           </div>
         ) : (
-          <button onClick={addToCart}>ADD TO CART</button>
+          <button onClick={handleAddToCart}>ADD TO CART</button>
         )}
       </div>
     </li>

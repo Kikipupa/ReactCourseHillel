@@ -20,12 +20,12 @@ function useFetch(url) {
         return response.json();
       })
       .then((result) => {
-        console.log("Fetched result:", result); // Debug log
-        setData(result.data); // Assuming the API response is { status: 'success', data: [...] }
+        console.log("Fetched result:", result);
+        setData(result.data);
         setIsLoading(false);
       })
       .catch((error) => {
-        console.error("Fetch error:", error.message); // Debug log
+        console.error("Fetch error:", error.message);
         setError(error.message);
         setIsLoading(false);
       });
